@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #
 # https://www.romanzolotarev.com/bin/rssg
 # Copyright 2018 Roman Zolotarev <hi@romanzolotarev.com>
@@ -87,7 +87,19 @@ rel_to_abs_urls() {
 }
 
 date_rfc_822() {
-	date -juf '%Y-%m-%d' $1 '+%a, %d %b %Y 00:00:00 %z'
+	if [ $(uname -s) == "Linux" ]; then
+		if [ $1 ]; then
+			date -u '+%a, %d %b %Y 00:00:00 %z' --date=$1
+		else
+			date -u '+%a, %d %b %Y 00:00:00 %z'
+		fi
+	else
+		if [ $1 ]; then
+			date -juf '%Y-%m-%d' $1 '+%a, %d %b %Y 00:00:00 %z'
+		else
+			date -ju '+%a, %d %b %Y 00:00:00 %z'
+		fi
+	fi
 }
 
 render_items() {
@@ -137,7 +149,6 @@ render_feed() {
 	url="$1"
 	title=$(echo "$2" | remove_nbsp)
 	description="$3"
-	date=$(date -I date)
 
 	base_url="$(echo "$url" | cut -d '/' -f1-3)"
 
@@ -148,7 +159,7 @@ render_feed() {
 <title>'"$title"'</title>
 <description>'"$description"'</description>
 <link>'"$base_url"'/</link>
-<lastBuildDate>'"$(date_rfc_822 "$date")"'</lastBuildDate>
+<lastBuildDate>'"$(date_rfc_822)"'</lastBuildDate>
 '"$(cat)"'
 </channel>
 </rss>'
