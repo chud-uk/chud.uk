@@ -30,6 +30,7 @@
 <body>
 <nav>
 <a href="/">Chud.uk</a>
+<a href="/rss.xml">RSS</a>
 </nav>
 $if(title)$
 <article>

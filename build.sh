@@ -14,3 +14,4 @@ mkdir -p `dirname $OUT`
 mv $TEMP $OUT
 ' _ {} $INPUT $DIST \;
 
+./rssg.sh dist/index.html > dist/rss.xml
