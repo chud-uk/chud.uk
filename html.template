@@ -29,7 +29,7 @@
 </head>
 <body>
 <nav>
-<a href="../">Chud.uk</a>
+<a href="/">Chud.uk</a>
 </nav>
 $if(title)$
 <article>
